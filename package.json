@@ -14,15 +14,15 @@
   "author": "Juliette Lamarche",
   "license": "MIT",
   "private": false,
-  "version": "0.0.3",
+  "version": "0.0.4",
   "type": "module",
-  "main": "main.umd.cjs",
-  "module": "dist/main.js",
-  "types": "dist/main.d.ts",
+  "main": "dist/index.umd.js",
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/index.es.js",
-      "requires": "main.umd.cjs",
+      "requires": "./dist/index.umd.js",
       "types": "./dist/index.d.ts"
     }
   },

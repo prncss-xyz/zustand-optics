@@ -11,9 +11,9 @@ export default defineConfig({
     sourcemap: true,
     emptyOutDir: true,
     lib: {
-      entry: resolve(__dirname, "lib/main.ts"),
-      fileName: "main",
-      name: "optics-ts",
+      entry: resolve(__dirname, "lib/index.ts"),
+      name: "zustand-optics",
+      fileName: (format) => `index.${format}.js`,
     },
     rollupOptions: {
       external: ["react", "zustand", "optics-ts"],
