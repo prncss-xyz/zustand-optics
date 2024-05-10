@@ -7,16 +7,23 @@
     "optics",
     "state"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/prncss-xyz/zustand-optics.git"
+  },
   "author": "Juliette Lamarche",
   "license": "MIT",
   "private": false,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc --p ./tsconfig-build.json && vite build",
@@ -27,7 +34,6 @@
   "peerDependencies": {
     "optics-ts": "^2.4.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "zustand": "^4.5.2"
   },
   "devDependencies": {

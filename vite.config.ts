@@ -8,9 +8,22 @@ export default defineConfig({
   plugins: [react(), dts({ include: ["lib"] })],
   build: {
     copyPublicDir: false,
+    sourcemap: true,
+    emptyOutDir: true,
     lib: {
       entry: resolve(__dirname, "lib/main.ts"),
       formats: ["es"],
+      fileName: "main.ts",
+    },
+    rollupOptions: {
+      external: ["react", "zustand", "optics-ts"],
+      output: {
+        globals: {
+          react: "React",
+          zustand: "Zustand",
+          "optics-ts": "OpticsTs",
+        },
+      },
     },
   },
 });
