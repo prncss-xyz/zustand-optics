@@ -14,16 +14,10 @@ export default defineConfig({
       entry: resolve(__dirname, "lib/index.ts"),
       name: "zustand-optics",
       fileName: (format) => `index.${format}.js`,
+      formats: ["es"],
     },
     rollupOptions: {
       external: ["react", "zustand", "optics-ts"],
-      output: {
-        globals: {
-          react: "React",
-          zustand: "Zustand",
-          "optics-ts": "OpticsTs",
-        },
-      },
     },
   },
 });
