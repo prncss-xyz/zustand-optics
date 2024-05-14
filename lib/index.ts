@@ -22,7 +22,7 @@ export function createStoreWithOptics<S>(
       | O.Prism<S, any, A>
       | O.Traversal<S, any, A>,
   ) {
-    return useBoundStore(valueProducer(focus));
+    return useBoundStore((s) => valueProducer(focus, s));
   }
 
   function set<A>(
@@ -41,7 +41,7 @@ export function createStoreWithOptics<S>(
   ) {
     return useCallback(
       (value: SetStateAction<A> | undefined) =>
-        useBoundStore.setState(updateProducer(focus)(value)),
+        useBoundStore.setState(updateProducer(focus, value)),
       [focus],
     );
   }
@@ -71,10 +71,8 @@ export function createStoreWithOptics<S>(
   function setWith<A, B>(...ps: [Pair<A>, Pair<B>]): () => void;
   function setWith<A>(...ps: Pair<A>[]): () => void;
   function setWith(...ps: Pair<unknown>[]) {
-    const step = (p: Pair<unknown>) => updateProducer(p[0])(p[1]);
-    const pipe2 = (f: (s: S) => S, g: (s: S) => S) => (s: S) => g(f(s));
     const cb = ps.reduce(
-      (acc, p) => pipe2(acc, step(p)),
+      (acc, [o, v]) => pipe2(acc, updateProducer(o, v)),
       (s: S) => s,
     );
     return useCallback(() => useBoundStore.setState(cb), [cb]);
@@ -100,10 +98,10 @@ export function createStoreWithOptics<S>(
       | O.Traversal<S, any, A>,
   ) {
     return [
-      useBoundStore(valueProducer(focus)),
+      useBoundStore((s) => valueProducer(focus, s)),
       useCallback(
         (value: SetStateAction<A> | undefined) =>
-          useBoundStore.setState(updateProducer(focus)(value)),
+          useBoundStore.setState(updateProducer(focus, value)),
         [focus],
       ),
     ] as const;
@@ -130,9 +128,9 @@ export function createStoreWithOptics<S>(
     isEqual = defaultIsEqual,
   ) {
     return [
-      useBoundStore((s) => isEqual(valueProducer(focus)(s), value)),
+      useBoundStore((s) => isEqual(valueProducer(focus, s), value)),
       useCallback(
-        () => useBoundStore.setState(updateProducer(focus)(value)),
+        () => useBoundStore.setState(updateProducer(focus, value)),
         [focus, value],
       ),
     ] as const;
@@ -147,47 +145,44 @@ export function createStoreWithOptics<S>(
   };
 }
 
+const pipe2 =
+  <A, B, C>(f: (s: A) => B, g: (s: B) => C) =>
+  (s: A) =>
+    g(f(s));
+
 const isFunction = <T>(x: T): x is T & ((...args: any[]) => any) =>
   typeof x === "function";
 
-const valueProducer =
-  <S, A>(
-    focus:
-      | O.Getter<S, A>
-      | O.Lens<S, any, A>
-      | O.Equivalence<S, any, A>
-      | O.Iso<S, any, A>
-      | O.Prism<S, any, A>
-      | O.Traversal<S, any, A>,
-  ) =>
-  (source: S) => {
-    if (focus._tag === "Traversal") {
-      const values = O.collect(focus)(source);
-      return values;
-    }
-    if (focus._tag === "Prism") {
-      const value = O.preview(focus)(source);
-      return value;
-    }
-    const value = O.get(focus)(source);
-    return value;
-  };
+function valueProducer<S, A>(
+  focus:
+    | O.Getter<S, A>
+    | O.Lens<S, any, A>
+    | O.Equivalence<S, any, A>
+    | O.Iso<S, any, A>
+    | O.Prism<S, any, A>
+    | O.Traversal<S, any, A>,
+  source: S,
+) {
+  if (focus._tag === "Traversal") return O.collect(focus)(source);
+  if (focus._tag === "Prism") return O.preview(focus)(source);
+  return O.get(focus)(source);
+}
 
-const updateProducer =
-  <S, A>(
-    focus:
-      | O.Lens<S, any, A>
-      | O.Equivalence<S, any, A>
-      | O.Iso<S, any, A>
-      | O.Prism<S, any, A>
-      | O.Traversal<S, any, A>,
-  ) =>
-  (update: SetStateAction<A> | undefined) => {
-    if (update === undefined) {
-      if (focus._tag === "Traversal" || focus._tag === "Prism")
-        return O.remove(focus);
-      return (s: S) => s;
-    }
-    if (isFunction(update)) return O.modify(focus)(update);
-    return O.set(focus)(update);
-  };
+function updateProducer<S, A>(
+  focus:
+    | O.Lens<S, any, A>
+    | O.Equivalence<S, any, A>
+    | O.Iso<S, any, A>
+    | O.Prism<S, any, A>
+    | O.Traversal<S, any, A>,
+  update: SetStateAction<A> | undefined,
+) {
+  if (update === undefined) {
+    if (focus._tag === "Traversal" || focus._tag === "Prism")
+      return (s: S) => O.remove(focus)(s);
+    // this should never happen
+    return (s: S) => s;
+  }
+  if (isFunction(update)) return O.modify(focus)(update);
+  return O.set(focus)(update);
+}
