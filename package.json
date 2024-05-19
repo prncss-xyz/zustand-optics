@@ -22,7 +22,7 @@
     "preview": "vite preview",
     "prepublishOnly": "pnpm run build",
     "test": "vitest",
-    "test:coverage": "vitest --coverage",
+    "test:coverage": "vitest --coverage"
   },
   "type": "module",
   "module": "dist/index.es.js",
