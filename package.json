@@ -14,7 +14,7 @@
   "author": "Juliette Lamarche",
   "license": "MIT",
   "private": false,
-  "version": "0.0.5",
+  "version": "0.0.0-semantic-release",
   "scripts": {
     "dev": "vite",
     "build": "tsc --p ./tsconfig-build.json && vite build",
@@ -22,7 +22,8 @@
     "preview": "vite preview",
     "prepublishOnly": "npm run build",
     "test": "vitest",
-    "test:coverage": "vitest --coverage"
+    "test:coverage": "vitest --coverage",
+    "prepare": "husky"
   },
   "type": "module",
   "module": "dist/index.es.js",
@@ -37,7 +38,8 @@
     "dist"
   ],
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "provenance": true
   },
   "peerDependencies": {
     "optics-ts": "^2.4.1",
