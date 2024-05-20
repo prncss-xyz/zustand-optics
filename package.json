@@ -14,7 +14,7 @@
   "author": "Juliette Lamarche",
   "license": "MIT",
   "private": false,
-  "version": "0.0.0-semantic-release",
+  "version": "1.0.1",
   "scripts": {
     "dev": "vite",
     "build": "tsc --p ./tsconfig-build.json && vite build",

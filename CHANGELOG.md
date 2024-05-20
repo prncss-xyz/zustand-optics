@@ -1,3 +1,18 @@
+## [1.0.1](https://github.com/prncss-xyz/zustand-optics/compare/v1.0.0...v1.0.1) (2024-05-20)
+
+
+### Bug Fixes
+
+* npm versionning ([1fad056](https://github.com/prncss-xyz/zustand-optics/commit/1fad05657273ace78faeac135640401037c872e0))
+* npm versionning ([bf30c64](https://github.com/prncss-xyz/zustand-optics/commit/bf30c64c07a1d4082967739e2e092654b27752e1))
+* npm versionning ([3957ab5](https://github.com/prncss-xyz/zustand-optics/commit/3957ab530f444108d491e19dda5085297cd35a3b))
+* npm versionning ([a306f50](https://github.com/prncss-xyz/zustand-optics/commit/a306f50ce0b70369cced028b7dd18832153b2dea))
+* npm versionning ([4d43f7f](https://github.com/prncss-xyz/zustand-optics/commit/4d43f7fda09e4847a59f53863b1fd1caf92949c6))
+* npm versionning ([ae05187](https://github.com/prncss-xyz/zustand-optics/commit/ae05187a1649b2c422c32f6235e7bb99ba7c8043))
+* npm versionning ([543815c](https://github.com/prncss-xyz/zustand-optics/commit/543815c1345eae7e6abaed86285c4cbdaa0980e8))
+* npm versionning ([f0d7f84](https://github.com/prncss-xyz/zustand-optics/commit/f0d7f845819a31d86bcb07685732bcbecce186a4))
+* npm versionning ([1e7b281](https://github.com/prncss-xyz/zustand-optics/commit/1e7b28181ace31cee4a322bca37ffac12d210b13))
+
 # Changelog
 
 ## 1.0.0 (2024-05-14)
