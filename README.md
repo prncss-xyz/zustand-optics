@@ -35,7 +35,7 @@ const grizzlyO = bearStoreO.prop("bears").prop("grizzly");
 
 function App() {
   const [grizzly, setGrizzly] = useBearStore.rw(grizzlyO);
-  const increasePopulation = useCallback(() => setGrizzly((x) => x + 1), []);
+  const increasePopulation = useCallback(() => setGrizzly((x) => x + 1), [setGrizzly]);
   return (
     <>
       <GrizzlyCounter grizzly={grizzly} />
@@ -62,7 +62,7 @@ Create a hook with methods as described below. For the meaning of `defaultIsEqua
 const value = useStore.get(focus);
 ```
 
-Returns the value of the focus. (Will retrun an array if focus is a traversable).
+Returns the value of the focus. (Will return an array if focus is a traversable).
 
 #### set
 
@@ -71,13 +71,13 @@ const setValue = useStore.set(focus);
 setValue(value);
 ```
 
-Return a callback which accepts a value and sets the focus with it. If `value` is a value (!), sets that value to the focus. If `value` is a callback, applies the callback to focus. If `value` is `undefined`, removes the focus for a removable optics (prism and traversable) and do nothing otherwise.
+Returns a callback which accepts a value and sets the focus to it. If `value` is a value (!), sets the focus to that value. If `value` is a callback, applies the callback to focus. If `value` is `undefined`, removes the focus for a removable optics (prism and traversable) and do nothing otherwise.
 
 The callback is stable.
 
 ### Utility hooks
 
-These are wrappers around basic hooks which can help with code readability.
+These are wrappers around the basic hooks which can help with code readability.
 
 ### rw
 
@@ -94,7 +94,7 @@ const [active, activate] = useStore.activate(focus, target, isEqual?);
 activate()
 ```
 
-Returns a pair. The first value is a boolean reprenting wether the focus has the target value. The second value is a callback setting focus to target value.
+Returns a pair. The first value is a boolean representing whether the focus is equal to target. The second value is a callback setting focus to target value.
 
 ```typescript
 isEqual<A>(a: A, b: A): boolean
