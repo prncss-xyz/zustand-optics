@@ -3,7 +3,6 @@
 
 ### Features
 
-
 * update npm docs ([21ceba3](https://github.com/prncss-xyz/zustand-optics/commit/21ceba3c837a1c38c2cc5f5a739f65937f7f8a81))
 
 ## [1.0.3](https://github.com/prncss-xyz/zustand-optics/compare/v1.0.2...v1.0.3) (2024-05-20)
