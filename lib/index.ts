@@ -3,7 +3,7 @@ import { SetStateAction, useCallback } from "react";
 import * as O from "optics-ts";
 import { StoreApi, UseBoundStore } from "zustand";
 
-export function bindStoreWithOptics<S>(
+export function withOptics<S>(
   useBoundStore: UseBoundStore<StoreApi<S>>,
   defaultIsEqual = Object.is,
 ) {

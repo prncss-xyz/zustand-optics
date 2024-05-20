@@ -1,5 +1,5 @@
 import { act, renderHook } from "@testing-library/react";
-import { bindStoreWithOptics } from ".";
+import { withOptics } from ".";
 import { create } from "zustand";
 import { optic } from "optics-ts";
 
@@ -9,7 +9,7 @@ describe("get", () => {
       const init = [1, 2, 3];
       const storeO = optic<typeof init>();
       const o = storeO.at(1);
-      const useTestStore = bindStoreWithOptics(create(() => init));
+      const useTestStore = withOptics(create(() => init));
       const value = renderHook(() => useTestStore.get(o)).result.current;
       expect(value).toBe(2);
     });
@@ -17,7 +17,7 @@ describe("get", () => {
       const init = [1, 2, 3];
       const storeO = optic<typeof init>();
       const o = storeO.at(3);
-      const useTestStore = bindStoreWithOptics(create(() => init));
+      const useTestStore = withOptics(create(() => init));
       const value = renderHook(() => useTestStore.get(o)).result.current;
       expect(value).toBeUndefined();
     });
@@ -27,7 +27,7 @@ describe("get", () => {
       const init = [1, 2, 3];
       const storeO = optic<typeof init>();
       const o = storeO.elems();
-      const useTestStore = bindStoreWithOptics(create(() => init));
+      const useTestStore = withOptics(create(() => init));
       const value = renderHook(() => useTestStore.get(o)).result.current;
       expect(value).toEqual([1, 2, 3]);
     });
@@ -39,7 +39,7 @@ describe("set", () => {
     const init = { a: 1, b: 2, c: 3 };
     const storeO = optic<typeof init>();
     const a = storeO.prop("a");
-    const useTestStore = bindStoreWithOptics(create(() => init));
+    const useTestStore = withOptics(create(() => init));
     const cb = renderHook(() => useTestStore.set(a)).result.current;
     act(() => cb(2));
     const state = renderHook(() => useTestStore.get(storeO)).result.current;
@@ -53,7 +53,7 @@ describe("setWith", () => {
     const storeO = optic<typeof init>();
     const a = storeO.prop("a");
     const b = storeO.prop("b");
-    const useTestStore = bindStoreWithOptics(create(() => init));
+    const useTestStore = withOptics(create(() => init));
     const cb = renderHook(() =>
       useTestStore.setWith([a, 2], [a, (x) => x * 3], [b, 3]),
     ).result.current;
@@ -68,7 +68,7 @@ describe("rw", () => {
     const init = { a: 1 };
     const storeO = optic<typeof init>();
     const p = storeO.prop("a");
-    const useTestStore = bindStoreWithOptics(create(() => init));
+    const useTestStore = withOptics(create(() => init));
     const { result } = renderHook(() => useTestStore.rw(p));
     expect(result.current[0]).toBe(1);
     act(() => {
@@ -80,7 +80,7 @@ describe("rw", () => {
     const init = { a: 1 };
     const storeO = optic<typeof init>();
     const p = storeO.prop("a");
-    const useTestStore = bindStoreWithOptics(create(() => init));
+    const useTestStore = withOptics(create(() => init));
     const { result } = renderHook(() => useTestStore.rw(p));
     expect(result.current[0]).toBe(1);
     act(() => {
@@ -92,7 +92,7 @@ describe("rw", () => {
     const init = { a: ["a", "b", "c"] };
     const storeO = optic<typeof init>();
     const focus = storeO.prop("a").at(1);
-    const useTestStore = bindStoreWithOptics(create(() => init));
+    const useTestStore = withOptics(create(() => init));
     const before = renderHook(() => useTestStore.get(storeO)).result.current;
     expect(before).toEqual({ a: ["a", "b", "c"] });
     const setter = renderHook(() => useTestStore.set(focus)).result.current;
@@ -109,7 +109,7 @@ describe("activate", () => {
     const init = { a: 1, b: 2 };
     const storeO = optic<typeof init>();
     const p = storeO.prop("a");
-    const useTestStore = bindStoreWithOptics(create(() => init));
+    const useTestStore = withOptics(create(() => init));
     const { result } = renderHook(() => useTestStore.activate(p, 3));
     expect(result.current[0]).toBeFalsy();
     act(() => {

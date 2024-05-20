@@ -15,17 +15,17 @@
 
 ```typescript
 import { create } from "zustand";
-import { bindStoreWithOptics } from "@prncss-xyz/zustand-optics";
+import { withOptics } from "@prncss-xyz/zustand-optics";
 import { optic } from "optics-ts";
 
 const init = { bears: { grizzly: 0 } };
-const useBearStore = bindStoreWithOptics(create(() => init));
+const useBearStore = withOptics(create(() => init));
 const bearStoreO = optic<typeof init>();
 ```
 
 ### Then
 
-```typescript
+```javascript
 import { useCallback } from "react";
 
 function GrizzlyCounter({ grizzly }: { grizzly: number }) {
@@ -48,9 +48,9 @@ function App() {
 
 ## API
 
-### bindStoreWithOptics
+### withOptics
 
-`const useStore = bindStoreWithOptics<S>(useBoundStore: UseBoundStore<StoreApi<S>>, defaultIsEqual = Object.is)`
+`const useStore = withOptics<S>(useBoundStore: UseBoundStore<StoreApi<S>>, defaultIsEqual = Object.is)`
 
 Create a hook with methods as described below. For the meaning of `defaultIsEqual`, see `activate`.
 
