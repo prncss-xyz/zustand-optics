@@ -22,7 +22,8 @@
     "preview": "vite preview",
     "prepublishOnly": "pnpm run build",
     "test": "vitest",
-    "test:coverage": "vitest --coverage"
+    "test:coverage": "vitest --coverage",
+    "prepare": "husky"
   },
   "type": "module",
   "module": "dist/index.es.js",
@@ -70,6 +71,7 @@
     ]
   },
   "devDependencies": {
+    "@commitlint/config-conventional": "^19.2.2",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/commit-analyzer": "^12.0.0",
     "@semantic-release/git": "^10.0.1",
@@ -87,6 +89,7 @@
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
+    "husky": "^9.0.11",
     "jsdom": "^24.0.0",
     "semantic-release": "^23.1.1",
     "typescript": "^5.4.5",
