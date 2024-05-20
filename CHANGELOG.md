@@ -1,14 +1,14 @@
 ## [1.1.1](https://github.com/prncss-xyz/zustand-optics/compare/v1.1.0...v1.1.1) (2024-05-20)
 
 
-### Bug Fixes
+### Chore
 
 * rename bindStoreWithOptics to withOptics ([c12289c](https://github.com/prncss-xyz/zustand-optics/commit/c12289c34c5a5a614e6212d7413186177828f864))
 
 # [1.1.0](https://github.com/prncss-xyz/zustand-optics/compare/v1.0.3...v1.1.0) (2024-05-20)
 
 
-### Features
+### Chore
 
 * update npm docs ([21ceba3](https://github.com/prncss-xyz/zustand-optics/commit/21ceba3c837a1c38c2cc5f5a739f65937f7f8a81))
 
