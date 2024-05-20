@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/prncss-xyz/zustand-optics/compare/v1.0.1...v1.0.2) (2024-05-20)
+
+
+### Bug Fixes
+
+* npm versionning ([27fa0d4](https://github.com/prncss-xyz/zustand-optics/commit/27fa0d475087f9b26fd92d263c8e659329ebff48))
+
 ## [1.0.1](https://github.com/prncss-xyz/zustand-optics/compare/v1.0.0...v1.0.1) (2024-05-20)
 
 
