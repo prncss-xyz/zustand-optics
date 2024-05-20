@@ -3,7 +3,7 @@ import { SetStateAction, useCallback } from "react";
 import * as O from "optics-ts";
 import { StoreApi, UseBoundStore } from "zustand";
 
-export function createStoreWithOptics<S>(
+export function bindStoreWithOptics<S>(
   useBoundStore: UseBoundStore<StoreApi<S>>,
   defaultIsEqual = Object.is,
 ) {
@@ -124,14 +124,14 @@ export function createStoreWithOptics<S>(
       | O.Iso<S, any, A>
       | O.Prism<S, any, A>
       | O.Traversal<S, any, A>,
-    value: A | undefined,
+    target: A | undefined,
     isEqual = defaultIsEqual,
   ) {
     return [
-      useBoundStore((s) => isEqual(valueProducer(focus, s), value)),
+      useBoundStore((s) => isEqual(valueProducer(focus, s), target)),
       useCallback(
-        () => useBoundStore.setState(updateProducer(focus, value)),
-        [focus, value],
+        () => useBoundStore.setState(updateProducer(focus, target)),
+        [focus, target],
       ),
     ] as const;
   }

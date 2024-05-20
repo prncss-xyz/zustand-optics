@@ -15,11 +15,11 @@
 
 ```typescript
 import { create } from "zustand";
-import { createStoreWithOptics } from "@prncss-xyz/zustand-optics";
+import { bindStoreWithOptics } from "@prncss-xyz/zustand-optics";
 import { optic } from "optics-ts";
 
 const init = { bears: { grizzly: 0 } };
-const useBearStore = createStoreWithOptics(create(() => init));
+const useBearStore = bindStoreWithOptics(create(() => init));
 const bearStoreO = optic<typeof init>();
 ```
 
@@ -48,9 +48,11 @@ function App() {
 
 ## API
 
-### createStoreWithOptics
+### bindStoreWithOptics
 
-`const useStore = createStoreWithOptics<S>(useBoundStore: UseBoundStore<StoreApi<S>>, defaultIsEqual = Object.is)`
+`const useStore = bindStoreWithOptics<S>(useBoundStore: UseBoundStore<StoreApi<S>>, defaultIsEqual = Object.is)`
+
+Create a hook with methods as described below. For the meaning of `defaultIsEqual`, see `activate`.
 
 ### Basic hooks
 
@@ -88,12 +90,17 @@ const [value, setValue] = useStore.rw(focus);
 ### activate
 
 ```javascript
-const [active, activate] = useStore.activate(focus);
+const [active, activate] = useStore.activate(focus, target, isEqual?);
+activate()
 ```
 
 Returns a pair. The first value is a boolean reprenting wether the focus has the target value. The second value is a callback setting focus to target value.
 
-The second argument is an optional comparing function. If not provided, it defaults to the second argument of `createStoreWithOptics`. If neither is provided, defaults to `Object.is`.
+```typescript
+isEqual<A>(a: A, b: A): boolean
+```
+
+The second argument is an optional equality function. If not provided, it defaults to the second argument of `createStoreWithOptics`. If neither is provided, defaults to `Object.is`.
 
 ### setWith
 
@@ -104,4 +111,4 @@ setter();
 
 Creates a callback which calls multiple `set` operations from left to right.
 
-Note on typing: if you have more than 7 arguments (please don't), typecript will assume they all have the same type.
+Note on typing: if you have more than 7 arguments (please don't), TypeScript will assume they all have the same type.
