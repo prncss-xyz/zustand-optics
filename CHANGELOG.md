@@ -3,3 +3,5 @@
 ### Bug Fixes
 
 - npm versionning ([d5dfe38](https://github.com/prncss-xyz/zustand-optics/commit/d5dfe38f92562a057538f1e1edce7ace4de262ed))
+
+
